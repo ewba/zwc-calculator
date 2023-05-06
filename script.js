@@ -17,6 +17,7 @@ const castelcucco = { // 2017 2228
 	wte: 5,
 	name: "Castelcucco",
 	country: "it",
+	cc: "it",
 	year: 2017
 };
 
@@ -30,6 +31,7 @@ const capannori = { // 2017 46542
 	wte: 05,
 	name: "Capannori",
 	country: "it",
+	cc: "it",
 	year: 2017
 };
 
@@ -42,6 +44,7 @@ const vrhnika = { // 2018 16978 / 25021
 	wte: 12,
 	name: "Vrhnika",
 	country: "si",
+	cc: "si",
 	year: 2018
 };
 
@@ -54,6 +57,7 @@ const treviso = { // 2017 83950
 	wte: 8,
 	name: "Treviso",
 	country: "it",
+	cc: "it",
 	year: 2017
 };
 
@@ -66,6 +70,7 @@ const parma = {// 2017 194417
 	wte: 15,
 	name: "Parma",
 	country: "it",
+	cc: "it",
 	year: 2017
 };
 
@@ -78,6 +83,7 @@ const carpi = {// 2018 72837
 	wte: 10,
 	name: "Carpi",
 	country: "it",
+	cc: "it",
 	year: 2018
 };
 
@@ -125,13 +131,50 @@ const ghgCosts = {
 	// "reuse": -29/7
 };
 
-// OECD PPP data for 2017
+// OECD PPP data for 2022
 // https://stats.oecd.org/Index.aspx?DataSetCode=CPL
-// choose 2017
-// choose Table 1.2 and look at Actual individual consumption
-// export, convert currencies to same unit
+// choose Purchasing Power Parities for GDP and related indicators
+// export Comparative price levels
+// if new champions are added from other countries, change their dropdown value and key here as well (like Italy and Slovenia)
 const PPP = {
-	"it": 1
+	"Other": 100, // default, OECD average
+	//"Australia": 125,
+	"Austria": 94,
+	"Belgium": 94,
+	//"Canada": 120,
+	//"Chile": 63,
+	//"Colombia": 42,
+	"Czech Republic": 68,
+	"Denmark": 110,
+	"Estonia": 75,
+	"Finland": 105,
+	"France": 91,
+	"Germany": 95,
+	"Greece": 69,
+	"Hungary": 54,
+	"Iceland": 137,
+	"Ireland": 101,
+	//"Israel": 139,
+	"it": 81,
+	//"Japan": 90,
+	//"Korea": 79,
+	"Latvia": 67,
+	"Lithuania": 63,
+	"Luxembourg": 109,
+	//"Mexico": 66,
+	"Netherlands": 98,
+	//"New Zealand": 114,
+	"Norway": 139,
+	"Poland": 52,
+	"Portugal": 72,
+	"Slovak Republic": 70,
+	"si": 73,
+	"Spain": 78,
+	"Sweden": 107,
+	"Switzerland": 139,
+	"Türkiye": 38,
+	"United Kingdom": 102,
+	//"United States": 125,
 }
 
 function switchLanguage(newLang) {
@@ -235,6 +278,13 @@ function rounder(val, ghg) {
 	return Math.round(val/scale) * scale;
 }
 
+// multiply when used with champ, otherwise invert first
+function getPPPadjustment(champ) {
+	if (data.ppp == "Other") return 1; // ignore
+
+	return PPP[data.ppp] / PPP[champ.cc];
+}
+
 function getGenCost(genAmount) {
 	let treatments = [ "compost", "recycling", "landfill", "wte" ];
 	let cost = 0;
@@ -277,13 +327,13 @@ function getSepCost(sepDiff) {
 function getTreatCost(champ) {
 	let treatments = [ "compost", "recycling", "landfill", "wte" ];
 	
-	let costDiff = 0; // chamption - our treatments
+	let costDiff = 0; // champion - our treatments
 	for (let treat of treatments) {
 		let costname = "cost-" + treat;
-		costDiff += data["wastegen"] / 1000 * (data[treat] - champ[treat]) / 100 * data[costname];
+		costDiff += data["wastegen"] / 1000 * (data[treat] - champ[treat] * getPPPadjustment(champ)) / 100 * data[costname];
 	}
 	// also consider pre-treatment, same percentage as landfilling
-	costDiff += data["wastegen"] / 1000 * (data["landfill"] - champ["landfill"]) / 100 * data["cost-pretreatment"];
+	costDiff += data["wastegen"] / 1000 * (data["landfill"] - champ["landfill"] * getPPPadjustment(champ)) / 100 * data["cost-pretreatment"];
 	
 	return rounder(costDiff * avgSize[data.population]);
 }
@@ -300,11 +350,11 @@ function getCompCost(genDiff, champ, ghg) {
 	let costDiff = 0; // champ - our management
 	for (let treat of treatments) {
 		let costname = "cost-" + treat;
-		costDiff += champ["wastegen"] / 1000 * champ[treat] / 100 * costs[costname]
+		costDiff += champ["wastegen"] / 1000 * champ[treat] / 100 * costs[costname] * (ghg ? 1 : getPPPadjustment(champ))
 		- data["wastegen"] / 1000 * data[treat] / 100 * costs[costname];
 	}
 	// also consider pre-treatment, same percentage as landfilling
-	costDiff += champ["wastegen"] / 1000 * champ["landfill"] / 100 * costs["cost-pretreatment"]
+	costDiff += champ["wastegen"] / 1000 * champ["landfill"] / 100 * costs["cost-pretreatment"] * (ghg ? 1 : getPPPadjustment(champ))
 	- data["wastegen"] / 1000 * data["landfill"] / 100 * costs["cost-pretreatment"];
 	
 	return rounder(-costDiff * avgSize[data.population], ghg);
@@ -555,7 +605,7 @@ const english = {
 	"t1-amb1": "Low",
 	"t1-amb2": "Medium",
 	"t1-amb3": "High",
-	"t1-note": "The data you submit through this form will be used to calculate potential savings through comparable scenarios and suggest further action for waste management optimization. The form contains default values which are 2017 EU-28 averages. You can modify these values in the next few steps",
+	"t1-note": "The data you submit through this form will be used to calculate potential savings through comparable scenarios and suggest further action for waste management optimization. It will take purchasing power parity into account if you selected a country.<br>The form contains default values which are 2017 EU-28 averages. You can modify these values in the next few steps",
 	"msw": "Municipal solid waste",
 	"gen": "Waste generation per capita",
 	"kgpa": "kg / year",
@@ -612,7 +662,7 @@ const slovenian = {
 	"t1-amb1": "Nizka",
 	"t1-amb2": "Srednja",
 	"t1-amb3": "Visoka",  
-	"t1-note": "Vnešeni podatki bodo uporabljeni za izračun potencialnih prihrankov preko primerjave z obstoječimi dobrimi primeri in za predloge nadaljnih izboljšav ravnanja z odpadki. Obrazec vsebuje privzete vrednosti, ki so večinoma povprečja za EU-28 za 2017. V naslednjih korakih jih lahko vse spremenite.",
+	"t1-note": "Vnešeni podatki bodo uporabljeni za izračun potencialnih prihrankov preko primerjave z obstoječimi dobrimi primeri in za predloge nadaljnih izboljšav ravnanja z odpadki. Če ste izbrali državo, bo upoštevana tudi razlika v razvitosti (PPP).<br> Obrazec vsebuje privzete vrednosti, ki so večinoma povprečja za EU-28 za 2017. V naslednjih korakih jih lahko vse spremenite.",
 	"msw": "Komunalni odpadki",
 	"gen": "Nastali komunalni odpadki na osebo",
 	"kgpa": "kg / leto",
