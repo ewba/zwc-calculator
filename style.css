@@ -22,3 +22,6 @@ body {
 .vspacer2 {
   height: 1.5em;
 }
+#lang-switcher-block {
+  margin: auto;
+}

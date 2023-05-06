@@ -1,6 +1,7 @@
 // global vars
 let data = {};
 let langs = {};
+const langIdx = [ "en", "bg", "cs", "sl" ]; // match html!
 let lang = "en";
 
 // http://www.zerowasteitaly.org/comuni-rifiuti-zero/zero-waste-municipalities-national-guarantee-board-for-zero-waste-italy/
@@ -130,6 +131,19 @@ const ghgCosts = {
 // export, convert currencies to same unit
 const PPP = {
 	"it": 1
+}
+
+function switchLanguage(newLang) {
+	const switcher = document.getElementById("lang-switcher");
+	let idx;
+	let reinit = false;
+	if (typeof newLang != "string") {
+		// use form value instead of passed
+		newLang = switcher.selectedOptions[0].value;
+		reinit = true;
+	}
+	switcher.selectedIndex = Math.max(0, langIdx.indexOf(newLang));
+	if (reinit) initTranslation(newLang, true);
 }
 
 function verifySelect() {
@@ -417,9 +431,12 @@ function initEventListeners() {
 	
 	const next = document.getElementById("next");
 	next.addEventListener("click", nextForm);
+
+	const langs = document.getElementById("lang-switcher");
+	langs.addEventListener("input", switchLanguage);
 }
 
-function initTranslation(lang) {
+function initTranslation(lang, override = false) {
 	// handle localized country names
 	for (const [cs, champ] of Object.entries(champions)) {
 		let cc = "cc-" + champ.country;
@@ -430,7 +447,7 @@ function initTranslation(lang) {
 		}
 	}
 	
-	if (!lang || lang == "en") return;
+	if (!lang || (!override && lang == "en")) return;
 	
 	for (const [elid, eltxt] of Object.entries(langs[lang])) {
 		let el = document.getElementById(elid);
@@ -480,6 +497,9 @@ function main() {
 		let lang2 = searchParams.get('lang') || lang;
 		lang = lang2;
 		initTranslation(lang2);
+		if (lang != "en") {
+			switchLanguage(lang);
+		}
 		
 		modifyDefaults(searchParams);
 	}
