@@ -1,0 +1,24 @@
+body {
+ /* padding: 1em;*/
+}
+.avatar {
+  background: none;
+}
+.column {
+  background: white;
+}
+.panel .panel-body {
+  padding-top: 1em;
+  padding-bottom: 1em;
+  min-height: 400px;
+}
+.panel-header img {
+  height: 2.65rem;
+  padding-left: 0.3rem;
+}
+.vspacer {
+  height: 0.5em;
+}
+.vspacer2 {
+  height: 1.5em;
+}

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - ZWC mock</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/spectre.css/0.5.8/spectre.min.css'><link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<main>
+<div class="container grid-sm">
+<div class="columns">
+  <!-- TODO: na koncu naredi proper responsive: ?
+         https://picturepan2.github.io/spectre/layout/responsive.html
+         https://picturepan2.github.io/responsive-resizer/
+       trenutno ni nobene potrebe po column(s) - izbriši
+  -->
+<div class="column">
+  <div class="panel">
+    <div class="panel-header">
+      <img class="float-right" src="https://ebm.si/p/zwcities-calc/logo_zwe.png" alt="ZWE logo">
+      <img class="float-right" src="https://ebm.si/p/zwcities-calc/logo_hnuti_duha.gif" alt="HD logo">
+      <img class="float-right" src="https://ebm.si/minlogo.png" alt="EBM logo">
+ 
+      <div class="panel-title h5 mt-10" id="main-title">Zero Waste Cities calculator</div>
+      <div class="panel-subtitle" id="main-subtitle">What are the potential savings?</div>
+    </div>
+
+    <nav class="panel-nav clearfix">
+      <ul class="tab tab-block">
+        <li class="tab-item active" data-idx="0">
+          <a href="#city" id="tab1">City data</a>
+        </li>
+        <li class="tab-item" data-idx="1">
+          <a href="#waste" id="tab2">Waste data</a>
+        </li>
+        <li class="tab-item" data-idx="2">
+          <a href="#cost" id="tab3">Cost data</a>
+        </li>
+        <li class="tab-item" data-idx="3">
+          <a href="#results" id="tab4">Results</a>
+        </li>
+        <li class="tab-item" data-idx="4">
+          <a href="#more" id="tab5">Learn more</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="panel-body d-none" data-idx="0">
+      <span id="t1-intro">Please enter some <strong>basic data about your city:</strong></span>
+      <form class="">
+        <div class="form-group">
+          <select class="form-select" id="population">
+            <option disabled selected id="t1-pop">Population</option>
+            <option value="5k" id="t1-5k">Below 5,000</option>
+            <option value="50k">5,000 - 50,000</option>
+            <option value="100k">50,000 - 100,000</option>
+            <option value="300k">100,000 - 500,000</option>
+          </select>
+
+          <div class="vspacer"></div>
+          
+          <select class="form-select" id="ambition">
+            <option disabled selected id="t1-amb">Ambition</option>
+            <option id="t1-amb1">Low</option>
+            <option id="t1-amb2">Medium</option>
+            <option id="t1-amb3">High</option>
+          </select>
+        </div>
+      </form>
+      
+      <div class="vspacer2"></div>
+
+      <p id="t1-note">The data you submit through this form will be used to calculate potential savings through comparable scenarios and suggest further action for waste management optimization. The form contains default values which are 2017 EU-28 averages. You can modify these values in the next few steps.</p>
+    </div>
+
+    <div class="panel-body d-none" data-idx="1">
+      <strong id="msw">Municipal solid waste</strong>:
+      <form class="form-horizontal">
+        <div class="form-group">
+          <div class="col-6 col-sm-12">
+            <label class="form-label" for="wastegen" id="gen">Waste generation per capita</label>
+          </div>
+          <div class="col-4 col-sm-8">
+            <input class="form-input" type="number" id="wastegen" min="0" max="1000" step="1" value="486">
+          </div>
+          <div class="col-2 col-sm-4">
+            <span class="form-label" style="padding-left: 1em" id="kgpa">kg / year</span>
+          </div>
+
+          <div class="col-12 vspacer"></div>
+ 
+          <!-- separation -->
+          <div class="col-6 col-sm-12">
+            <label class="form-label" for="separation" id="sep">Separate collection rate</label>
+          </div>
+          <div class="col-4 col-sm-8">
+            <input class="form-input" type="number" id="separation" min="0" max="100" value="40" step="1">
+          </div>
+          <div class="col-2 col-sm-4">
+            <span class="form-label" style="padding-left: 1em">%</span>
+          </div>
+
+          <div class="col-12 vspacer2"></div>
+
+          <!-- treatment: landfilling, recycling, composting, WtE -->
+          <div class="col-12" style="height: 2.5em; font-weight:bold"><span id="treat">Waste treatment (total</span>: <span id="pertotal">100</span> %):</div>
+         
+          <div class="col-6 col-sm-12">
+            <label class="form-label" for="compost" id="comp">Composting</label>
+          </div>
+          <div class="col-4 col-sm-8">
+            <input class="form-input percent-100" type="number" id="compost" min="0" max="100" value="17" step="1">
+          </div>
+          <div class="col-2 col-sm-4">
+            <span class="form-label" style="padding-left: 1em">%</span>
+          </div>  
+          <div class="col-12 vspacer"></div>
+          
+          <div class="col-6 col-sm-12">
+            <label class="form-label" for="recycling" id="recy">Recycling</label>
+          </div>
+          <div class="col-4 col-sm-8">
+            <input class="form-input percent-100" type="number" id="recycling" min="0" max="100" value="30" step="1">
+          </div>
+          <div class="col-2 col-sm-4">
+            <span class="form-label" style="padding-left: 1em">%</span>
+          </div>  
+          <div class="col-12 vspacer"></div>
+          
+          <div class="col-6 col-sm-12">
+            <label class="form-label" for="landfill" id="land">Landfilling</label>
+          </div>
+          <div class="col-4 col-sm-8">
+            <input class="form-input percent-100" type="number" id="landfill" min="0" max="100" value="24" step="1">
+          </div>
+          <div class="col-2 col-sm-4">
+            <span class="form-label" style="padding-left: 1em">%</span>
+          </div>  
+          <div class="col-12 vspacer"></div>
+
+          <div class="col-6 col-sm-12">
+            <label class="form-label" for="wte" id="w2e">(Co)incineration</label>
+          </div>
+          <div class="col-4 col-sm-8">
+            <input class="form-input percent-100" type="number" id="wte" min="0" max="100" value="29" step="1">
+          </div>
+          <div class="col-2 col-sm-4">
+            <span class="form-label" style="padding-left: 1em">%</span>
+          </div>  
+          <div class="col-12 vspacer"></div>
+        </div>
+      </form>
+    </div>
+
+    <div class="panel-body d-none" data-idx="2">
+      <strong id="t3-intro">Cost of waste treatment per ton:</strong>
+      <form class="form-horizontal">
+        <div class="form-group">
+          <div class="col-6 col-sm-12">
+            <label class="form-label" for="cost-compost" id="c-comp">Composting</label>
+          </div>
+          <div class="col-4 col-sm-8">
+            <input class="form-input" type="number" id="cost-compost" min="0" max="5000" value="60" step="1">
+          </div>
+          <div class="col-2 col-sm-4">
+            <span id="ppt" class="form-label" style="padding-left: 1em">€ / t</span>
+          </div>  
+          <div class="col-12 vspacer"></div>
+          
+          <div class="col-6 col-sm-12">
+            <label class="form-label" for="cost-recycling" id="c-recy">Recycling</label>
+          </div>
+          <div class="col-4 col-sm-8">
+            <input class="form-input" type="number" id="cost-recycling" min="0" max="5000" value="70" step="1">
+          </div>
+          <div class="col-2 col-sm-4">
+            <span id="ppt1" class="form-label" style="padding-left: 1em">€ / t</span>
+          </div>  
+          <div class="col-12 vspacer"></div>
+          
+          <div class="col-6 col-sm-12">
+            <label class="form-label" for="cost-landfill" id="c-land">Landfilling</label>
+          </div>
+          <div class="col-4 col-sm-8">
+            <input class="form-input" type="number" id="cost-landfill" min="0" max="5000" value="60" step="1">
+          </div>
+          <div class="col-2 col-sm-4">
+            <span id="ppt2" class="form-label" style="padding-left: 1em">€ / t</span>
+          </div>  
+          <div class="col-12 vspacer"></div>
+
+          <div class="col-6 col-sm-12">
+            <label class="form-label" for="cost-wte" id="c-w2e">(Co)incineration</label>
+          </div>
+          <div class="col-4 col-sm-8">
+            <input class="form-input" type="number" id="cost-wte" min="0" max="5000" value="140" step="1">
+          </div>
+          <div class="col-2 col-sm-4">
+            <span id="ppt3" class="form-label" style="padding-left: 1em">€ / t</span>
+          </div>  
+          <div class="col-12 vspacer"></div>
+
+          <div class="col-6 col-sm-12">
+            <label class="form-label" for="cost-pretreatment" id="c-pret">Pre-treatment</label>
+          </div>
+          <div class="col-4 col-sm-8">
+            <input class="form-input" type="number" id="cost-pretreatment" min="0" max="5000" value="50" step="1">
+          </div>
+          <div class="col-2 col-sm-4">
+            <span id="ppt4" class="form-label" style="padding-left: 1em">€ / t</span>
+          </div>  
+          <div class="col-12 vspacer"></div>
+          
+        </div>
+        <span id="c-value">These default costs don't include offsets for the market value of recyclables.</span>
+      </form>
+    </div>
+    
+    <div class="panel-body d-none" data-idx="3">
+      <strong id="t4-intro">Results</strong><br/>
+      <div id="results">Press next</div>
+    </div>
+ 
+    <div class="panel-body d-none" data-idx="4">
+      <p id="t5-p1">Want to get familiar with key principles and myths of the Zero Waste approach, dive into case studies or learn through site visits? Explore the <a href='https://zerowastecities.eu/' target='_blank' rel='noopener'>Zero Waste Cities</a> website for that and more!</p>
+
+      <div>
+        <img class="float-right" alt="Erasmus+ logo" src="https://ebm.si/p/zwcities-calc/eu_flag_co_funded_pos_rgb_left-200px.jpg">
+        <p id="t5-p2">This calculator was developed by <a href='https://ebm.si/en/' target='_blank' rel='noopener'>Ekologi brez meja</a> during the <i>Creating zero waste methodology for municipalities</i> Erasmus+ project together with <a href='http://hnutiduha.cz/o-nas/about-us/' target='_blank' rel='noopener'>Hnutí Duha</a> and <a href='https://zerowasteeurope.eu/' target='_blank' rel='noopener'>Zero Waste Europe</a>.</p>
+      </div>
+      
+      <p id="t5-p3">Besides Eurostat data, it uses City of London GHG emission figures for different waste treatment options, model city figures from their annual Zero Waste strategy reports and the initial per-ton costs computed from a report by the German Environmental Agency.</p>
+    </div>
+    
+        
+    <div class="panel-footer">
+      <button class="btn btn-primary btn-block" id="next" disabled>Next</button>
+    </div>
+  </div>
+</div>
+
+</div>
+</div>
+</main>
+ <script  src="./script.js"></script>
+
+</body>
+</html>
