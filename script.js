@@ -3,6 +3,7 @@ let data = {};
 let langs = {};
 const langIdx = [ "en", "bg", "cs", "sl" ]; // match html!
 let lang = "en";
+let counted = false;
 
 // http://www.zerowasteitaly.org/comuni-rifiuti-zero/zero-waste-municipalities-national-guarantee-board-for-zero-waste-italy/
 // https://www.catasto-rifiuti.isprambiente.it/index.php?pg=gestregione&aa=2018&regid=&areaid=Italia&mappa=0#p
@@ -407,6 +408,16 @@ function nextForm() {
 	idx = (idx*1+1) % 5;
 	switchTab(idx);
 	syncBtnText(idx);
+
+	// ping a counter, once per session
+	// fetch is nicer, but let's try a tiny bit more compatibility
+	//fetch("https://ebm.si/p/zwcities-calc/hitit.php");
+	if (!counted) {
+		var oReq = new XMLHttpRequest();
+		oReq.open("GET", "https://ebm.si/p/zwcities-calc/hitit.php");
+		oReq.send();
+		counted = true;
+	}
 }
 
 function initEventListeners() {
@@ -423,12 +434,12 @@ function initEventListeners() {
 	// enable the panel of the active tab
 	const activeTab = tabs.filter(t => t.classList.contains("active"))[0].getAttribute("data-idx");
 	switchTab(activeTab*1, true);
-	
+
 	const percents = document.querySelectorAll(".percent-100");
 	for (let per of percents) {
 		per.addEventListener("input", ensure100);
 	}
-	
+
 	const next = document.getElementById("next");
 	next.addEventListener("click", nextForm);
 
@@ -505,13 +516,6 @@ function main() {
 	}
 	
 	initEventListeners();
-	
-	// ping a counter
-	// fetch is nicer, but let's try a tiny bit more compatibility
-	//fetch("https://ebm.si/p/zwcities-calc/hitit.php");
-	var oReq = new XMLHttpRequest();
-	oReq.open("GET", "https://ebm.si/p/zwcities-calc/hitit.php");
-	oReq.send();
 }
 
 window.addEventListener("load", main);
