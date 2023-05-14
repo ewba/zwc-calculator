@@ -1,4 +1,22 @@
-- new climate data
-- update main data?
+- find fresher cost data
+- remove ambition?
 - feedback like 'you are x% short of the targets / not on the way to circular
   economy - lower the amount of waste burnt to at most 35 percent'?
+
+NOTES:
+
+// from https://www.london.gov.uk/sites/default/files/gla_eps_update_2017_final.pdf page 20
+
+// https://www.zerowastescotland.org.uk/our-work/carbon-metric-publications factors
+// per-fraction values
+
+// ETC/WMGE, 2018, ‘European Reference Model on Municipal Waste’, European Topic Centre on Waste and Materials (https://www.eionet.europa.eu/etcs/etc-ce/products/wastemodel) accessed 12 August 2019. YES, see Calculations file, hidden sheet GHG Assumptions and nearby treatment ones
+// per-fraction values separated to biogenic and fossil, also for prevention
+
+// 2021 MRBT report https://zerowasteeurope.eu/wp-content/uploads/2020/06/zero_waste_europe_policy-briefing_MRBT_en_with-annex.pdf
+// 0.8 emissions from 1 tonne of mixed waste when incinerated for power generation
+// 0.17 ... landfilled
+
+// 2023 inspect EIB methodology https://www.eib.org/en/publications/20220215-eib-project-carbon-footprint-methodologies page 23-28
+// good data for wastewater sludge treatment
+// 0.925 incineration of msw (nonbiogenic)

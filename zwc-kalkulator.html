@@ -123,9 +123,10 @@
       
       <div class="vspacer2"></div>
 
-      <p id="t1-note">The data you submit through this form will be used to calculate potential savings through comparable scenarios and suggest further action for waste management optimization. It will take purchasing power parity into account if you selected a country.<br>The form contains default values which are 2017 EU-28 averages. You can modify these values in the next few steps.</p>
+      <p id="t1-note">The data you submit through this form will be used to calculate potential savings through comparable scenarios and suggest further action for waste management optimization. It will take purchasing power parity into account if you selected a country.<br>The form contains default values which are 2021 EU-27 averages. You can modify these values in the next few steps.</p>
     </div>
 
+    <!-- Eurostat "Municipal waste by waste management operations" for the treatment shares; separation lower bound is recycling+composting share -->
     <div class="panel-body d-none" data-idx="1">
       <strong id="msw">Municipal solid waste</strong>:
       <form class="form-horizontal">
@@ -134,7 +135,7 @@
             <label class="form-label" for="wastegen" id="gen">Waste generation per capita</label>
           </div>
           <div class="col-4 col-sm-8">
-            <input class="form-input" type="number" id="wastegen" min="0" max="1000" step="1" value="486">
+            <input class="form-input" type="number" id="wastegen" min="0" max="1000" step="1" value="530">
           </div>
           <div class="col-2 col-sm-4">
             <span class="form-label" style="padding-left: 1em" id="kgpa">kg / year</span>
@@ -147,7 +148,7 @@
             <label class="form-label" for="separation" id="sep">Separate collection rate</label>
           </div>
           <div class="col-4 col-sm-8">
-            <input class="form-input" type="number" id="separation" min="0" max="100" value="40" step="1">
+            <input class="form-input" type="number" id="separation" min="0" max="100" value="50" step="1">
           </div>
           <div class="col-2 col-sm-4">
             <span class="form-label" style="padding-left: 1em">%</span>
@@ -162,7 +163,7 @@
             <label class="form-label" for="compost" id="comp">Composting</label>
           </div>
           <div class="col-4 col-sm-8">
-            <input class="form-input percent-100" type="number" id="compost" min="0" max="100" value="17" step="1">
+            <input class="form-input percent-100" type="number" id="compost" min="0" max="100" value="19" step="1">
           </div>
           <div class="col-2 col-sm-4">
             <span class="form-label" style="padding-left: 1em">%</span>
@@ -173,7 +174,7 @@
             <label class="form-label" for="recycling" id="recy">Recycling</label>
           </div>
           <div class="col-4 col-sm-8">
-            <input class="form-input percent-100" type="number" id="recycling" min="0" max="100" value="30" step="1">
+            <input class="form-input percent-100" type="number" id="recycling" min="0" max="100" value="32" step="1">
           </div>
           <div class="col-2 col-sm-4">
             <span class="form-label" style="padding-left: 1em">%</span>
@@ -184,7 +185,7 @@
             <label class="form-label" for="landfill" id="land">Landfilling</label>
           </div>
           <div class="col-4 col-sm-8">
-            <input class="form-input percent-100" type="number" id="landfill" min="0" max="100" value="24" step="1">
+            <input class="form-input percent-100" type="number" id="landfill" min="0" max="100" value="23" step="1">
           </div>
           <div class="col-2 col-sm-4">
             <span class="form-label" style="padding-left: 1em">%</span>
@@ -195,7 +196,7 @@
             <label class="form-label" for="wte" id="w2e">(Co)incineration</label>
           </div>
           <div class="col-4 col-sm-8">
-            <input class="form-input percent-100" type="number" id="wte" min="0" max="100" value="29" step="1">
+            <input class="form-input percent-100" type="number" id="wte" min="0" max="100" value="26" step="1">
           </div>
           <div class="col-2 col-sm-4">
             <span class="form-label" style="padding-left: 1em">%</span>
@@ -279,7 +280,7 @@
 
       <div>
         <img class="float-right" alt="Erasmus+ logo" src="https://ebm.si/p/zwcities-calc/eu_flag_co_funded_pos_rgb_left-200px.jpg">
-        <p id="t5-p2">This calculator was developed by <a href='https://ebm.si/en/' target='_blank' rel='noopener'>Ekologi brez meja</a> during the <i>Creating zero waste methodology for municipalities</i> Erasmus+ project together with <a href='http://hnutiduha.cz/o-nas/about-us/' target='_blank' rel='noopener'>Hnutí Duha</a> and <a href='https://zerowasteeurope.eu/' target='_blank' rel='noopener'>Zero Waste Europe</a>. It was upgraded in 2023 with the support of the European Climate Foundation.</p>
+        <p id="t5-p2">This calculator was developed by <a href='https://ebm.si/en/' target='_blank' rel='noopener'>Ekologi brez meja</a> during the <i>Creating zero waste methodology for municipalities</i> Erasmus+ project together with <a href='http://hnutiduha.cz/o-nas/about-us/' target='_blank' rel='noopener'>Hnutí Duha</a> and <a href='https://zerowasteeurope.eu/' target='_blank' rel='noopener'>Zero Waste Europe</a>. It was upgraded in 2023 with the support of the European Climate Foundation</p>
       </div>
       
       <p id="t5-p3">Besides Eurostat data, it uses City of London GHG emission figures for different waste treatment options, model city figures from their annual Zero Waste strategy reports and the initial per-ton costs computed from a report by the German Environmental Agency.</p>

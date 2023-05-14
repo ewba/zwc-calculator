@@ -8,8 +8,9 @@ let counted = false;
 // http://www.zerowasteitaly.org/comuni-rifiuti-zero/zero-waste-municipalities-national-guarantee-board-for-zero-waste-italy/
 // https://www.catasto-rifiuti.isprambiente.it/index.php?pg=gestregione&aa=2018&regid=&areaid=Italia&mappa=0#p
 // Italian TREATMENT DATA is estimated
-const castelcucco = { // 2017 2228
-	wastegen: 401, // 27 residual
+// unused
+const castelcucco = { // 2021 2294
+	wastegen: 473, //  residual
 	separation: 94,
 	compost: 30,
 	recycling: 60,
@@ -18,7 +19,20 @@ const castelcucco = { // 2017 2228
 	name: "Castelcucco",
 	country: "it",
 	cc: "it",
-	year: 2017
+	year: 2021
+};
+
+const tramutola = { // 2021 2925
+	wastegen: 213, // 19 residual
+	separation: 89,
+	compost: 30,
+	recycling: 60,
+	landfill: 5,
+	wte: 5,
+	name: "Tramutola",
+	country: "it",
+	cc: "it",
+	year: 2021
 };
 
 // unused city; numbers prefixed with 0 are placeholders
@@ -36,20 +50,20 @@ const capannori = { // 2017 46542
 };
 
 const vrhnika = { // 2018 16978 / 25021
-	wastegen: 385, // 64 residual
+	wastegen: 368, // 63 residual
 	separation: 83,
-	compost: 38,
-	recycling: 40,
+	compost: 34,
+	recycling: 45,
 	landfill: 10,
 	wte: 12,
 	name: "Vrhnika",
 	country: "si",
 	cc: "si",
-	year: 2018
+	year: 2021
 };
 
-const treviso = { // 2017 83950
-	wastegen: 465, // 59 residual
+const treviso = { // 2021 84793
+	wastegen: 468, //  residual
 	separation: 87,
 	compost: 35,
 	recycling: 50,
@@ -58,22 +72,23 @@ const treviso = { // 2017 83950
 	name: "Treviso",
 	country: "it",
 	cc: "it",
-	year: 2017
+	year: 2021
 };
 
-const parma = {// 2017 194417
-	wastegen: 550, // 104 residual
-	separation: 81,
+const parma = {// 2021 196655
+	wastegen: 571, //  residual
+	separation: 82,
 	compost: 30,
-	recycling: 40,
+	recycling: 45,
 	landfill: 15,
-	wte: 15,
+	wte: 10,
 	name: "Parma",
 	country: "it",
 	cc: "it",
-	year: 2017
+	year: 2021
 };
 
+// unused
 const carpi = {// 2018 72837
 	wastegen: 393, // 64,1 residual
 	separation: 84,
@@ -87,7 +102,7 @@ const carpi = {// 2018 72837
 	year: 2018
 };
 
-const champ_5k = castelcucco;
+const champ_5k = tramutola;
 const champ_50k = vrhnika;
 const champ_100k = treviso;
 const champ_300k = parma;
@@ -120,14 +135,13 @@ const ambF = {
 	"3": 1,
 }
 
-// from https://www.london.gov.uk/sites/default/files/gla_eps_update_2017_final.pdf page 20
 // for each ton of waste, so much ghg got produced/saved
 const ghgCosts = {
-	"cost-compost": -20/322,
-	"cost-recycling": -500/753,
-	"cost-landfill": 132/707,
-	"cost-wte": 177/1530,
-	"cost-pretreatment": 40/365
+	"cost-compost": -20/322, // -0,062
+	"cost-recycling": -500/753, // -0,664
+	"cost-landfill": 0.17, // 0,187
+	"cost-wte": 0.925, // 0,116
+	"cost-pretreatment": 0 // 0,110, now folded into landfilling
 	// "reuse": -29/7
 };
 
@@ -605,7 +619,7 @@ const english = {
 	"t1-amb1": "Low",
 	"t1-amb2": "Medium",
 	"t1-amb3": "High",
-	"t1-note": "The data you submit through this form will be used to calculate potential savings through comparable scenarios and suggest further action for waste management optimization. It will take purchasing power parity into account if you selected a country.<br>The form contains default values which are 2017 EU-28 averages. You can modify these values in the next few steps",
+	"t1-note": "The data you submit through this form will be used to calculate potential savings through comparable scenarios and suggest further action for waste management optimization. It will take purchasing power parity into account if you selected a country.<br>The form contains default values which are 2021 EU-27 averages. You can modify these values in the next few steps",
 	"msw": "Municipal solid waste",
 	"gen": "Waste generation per capita",
 	"kgpa": "kg / year",
@@ -662,7 +676,7 @@ const slovenian = {
 	"t1-amb1": "Nizka",
 	"t1-amb2": "Srednja",
 	"t1-amb3": "Visoka",  
-	"t1-note": "Vnešeni podatki bodo uporabljeni za izračun potencialnih prihrankov preko primerjave z obstoječimi dobrimi primeri in za predloge nadaljnih izboljšav ravnanja z odpadki. Če ste izbrali državo, bo upoštevana tudi razlika v razvitosti (PPP).<br> Obrazec vsebuje privzete vrednosti, ki so večinoma povprečja za EU-28 za 2017. V naslednjih korakih jih lahko vse spremenite.",
+	"t1-note": "Vnešeni podatki bodo uporabljeni za izračun potencialnih prihrankov preko primerjave z obstoječimi dobrimi primeri in za predloge nadaljnih izboljšav ravnanja z odpadki. Če ste izbrali državo, bo upoštevana tudi razlika v razvitosti (PPP).<br> Obrazec vsebuje privzete vrednosti, ki so večinoma povprečja za EU-27 za 2021. V naslednjih korakih jih lahko vse spremenite.",
 	"msw": "Komunalni odpadki",
 	"gen": "Nastali komunalni odpadki na osebo",
 	"kgpa": "kg / leto",
@@ -719,7 +733,7 @@ const czech = {
 	"t1-amb1": "Nízká",
 	"t1-amb2": "Střední",
 	"t1-amb3": "Vysoká",
-	"t1-note": "Data, která zadáte do tohoto formuláře budou použita k výpočtu potenciálních úspor porovnáním srovnatelných scénářů a k návrhu dalších opatření ke zlepšení nakládání s odpady. Formulář obsahuje základní údaje, které vychází z průměrných hodnot zemí EU-28. Údaje lze modifikovat v dalších krocích",
+	"t1-note": "Data, která zadáte do tohoto formuláře budou použita k výpočtu potenciálních úspor porovnáním srovnatelných scénářů a k návrhu dalších opatření ke zlepšení nakládání s odpady. Formulář obsahuje základní údaje, které vychází z průměrných hodnot zemí EU-27. Údaje lze modifikovat v dalších krocích",
 	"msw": "Komunální odpad",
 	"gen": "Produkce odpadu na obyvatele",
 	"kgpa": "kg / rok",
@@ -776,7 +790,7 @@ const bulgarian = {
 	"t1-amb1": "Ниско",
 	"t1-amb2": "Средно",
 	"t1-amb3": "Високо",
-	"t1-note": "Данните, които предоставяте чрез този формуляр, ще бъдат използвани за изчисляване на потенциалните спестявания при сравними обстоятелства, както и за предлагане на по-нататъшни действия за оптимизиране на управлението на отпадъците. Формулярът съдържа стойности по подразбиране, които са средните стойности за 2017 г. за държавите-членки на Европейския съюз (ЕС-28). Можете да промените тези стойности в следващите няколко стъпки.",
+	"t1-note": "Данните, които предоставяте чрез този формуляр, ще бъдат използвани за изчисляване на потенциалните спестявания при сравними обстоятелства, както и за предлагане на по-нататъшни действия за оптимизиране на управлението на отпадъците. Формулярът съдържа стойности по подразбиране, които са средните стойности за 2021 г. за държавите-членки на Европейския съюз (ЕС-27). Можете да промените тези стойности в следващите няколко стъпки.",
 	"msw": "Твърди битови отпадъци",
 	"gen": "Образуване на отпадъци на жител",
 	"kgpa": "кг/година",
