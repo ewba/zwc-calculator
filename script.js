@@ -519,9 +519,7 @@ function initTranslation(lang, override = false) {
 	for (const [cs, champ] of Object.entries(champions)) {
 		let cc = "cc-" + champ.cc;
 		let nc = getTranslation(cc);
-		if (nc) {
-			champ.title = champ.name + ", " + nc;
-		}
+		champ.title = champ.name + (nc ? ", " + nc : "");
 	}
 	
 	if (!lang || (!override && lang == "en")) return;
