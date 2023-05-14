@@ -201,7 +201,14 @@ function switchLanguage(newLang) {
 	}
 	lang = newLang;
 	switcher.selectedIndex = Math.max(0, langIdx.indexOf(newLang));
-	if (reinit) initTranslation(newLang, true);
+	if (reinit) {
+		initTranslation(newLang, true);
+		const activeTab = getActiveTabId();
+		// force redraw the results page, even if we're not on it
+		switchTab(2);
+		nextForm();
+		switchTab(activeTab);
+	}
 }
 
 function verifySelect() {
