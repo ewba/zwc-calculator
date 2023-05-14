@@ -17,7 +17,6 @@ const castelcucco = { // 2021 2294
 	landfill: 5,
 	wte: 5,
 	name: "Castelcucco",
-	country: "it",
 	cc: "it",
 	year: 2021
 };
@@ -30,7 +29,6 @@ const tramutola = { // 2021 2925
 	landfill: 5,
 	wte: 5,
 	name: "Tramutola",
-	country: "it",
 	cc: "it",
 	year: 2021
 };
@@ -44,7 +42,6 @@ const capannori = { // 2017 46542
 	landfill: 05,
 	wte: 05,
 	name: "Capannori",
-	country: "it",
 	cc: "it",
 	year: 2017
 };
@@ -57,7 +54,6 @@ const vrhnika = { // 2018 16978 / 25021
 	landfill: 10,
 	wte: 12,
 	name: "Vrhnika",
-	country: "si",
 	cc: "si",
 	year: 2021
 };
@@ -70,7 +66,6 @@ const treviso = { // 2021 84793
 	landfill: 7,
 	wte: 8,
 	name: "Treviso",
-	country: "it",
 	cc: "it",
 	year: 2021
 };
@@ -83,7 +78,6 @@ const parma = {// 2021 196655
 	landfill: 15,
 	wte: 10,
 	name: "Parma",
-	country: "it",
 	cc: "it",
 	year: 2021
 };
@@ -97,7 +91,6 @@ const carpi = {// 2018 72837
 	landfill: 10,
 	wte: 10,
 	name: "Carpi",
-	country: "it",
 	cc: "it",
 	year: 2018
 };
@@ -527,8 +520,7 @@ function initTranslation(lang, override = false) {
 		let cc = "cc-" + champ.cc;
 		let nc = getTranslation(cc);
 		if (nc) {
-			champ.country = nc;
-			champ.title = champ.name + ", " + champ.country;
+			champ.title = champ.name + ", " + nc;
 		}
 	}
 	
