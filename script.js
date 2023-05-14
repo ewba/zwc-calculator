@@ -437,16 +437,17 @@ function calculateBenefits() {
 	let compCost = getCompCost(genDiff, champ, false);
 	if (compCost > 0) {
 		let reduced = rounder(compCost * ambF[data.ambition]);
-		msg += inject(getTranslation("res-desc4a"), [champ.name, compCost.toLocaleString()]);
-		if (ambF[data.ambition] != 1) {
-			msg += " (" + inject(getTranslation("res-desc4b"), [reduced.toLocaleString()])  + ").<br>";
-		} else {
-			msg += ".<br>";
-		}
+		msg += inject(getTranslation("res-desc4a"), [champ.name, compCost.toLocaleString()]) + ".";
 	} else {
-		msg += inject(getTranslation("res-con4"), [champ.name]) + "<br>";
+		msg += inject(getTranslation("res-con4"), [champ.name]);
 	}
 	//msg += "1+2+3 vs 4: " + cost + " vs " + compCost;
+	// potentially add gap to 65 % recycling target
+	const totalRecycling = data["compost"] + data["recycling"];
+	if (totalRecycling < 65) {
+		msg += inject(getTranslation("res-desc4c"), [65 - totalRecycling]);
+	}
+	msg += "<br>";
 	
 	// GHG savings
 	let ghgCost = getCompCost(genDiff, champ, true);
@@ -659,6 +660,7 @@ const english = {
 	"res-desc3": 'You could save <strong>${0} €</strong> per year if you treated your waste the same.',
 	"res-desc4a": 'If you managed your waste the same as in ${0}, <strong>you could save ${1} €</strong> per year',
 	"res-desc4b": '${0} € at your level of ambition',
+	"res-desc4c": ' <strong>Warning</strong>: ${0} % short of the EU 65 % recycling target!',
 	"res-overall": "Overall comparison",
 	"res-ghg1": 'Greenhouse gas savings',
 	"res-ghg2": 'If you managed your waste the same as in ${0}, you could avoid at least <strong>${1} tons of CO<sub>2</sub>eq</strong> emissions per year.',
@@ -716,6 +718,7 @@ const slovenian = {
 	"res-desc3": 'Letno bi lahko prihranili <strong>${0} €</strong> — če bi odpadke obdelali na enak način.',
 	"res-desc4a": 'Če bi enako ravnali z odpadki kot ${0}, bi lahko <strong>letno prihranili ${1} €</strong>',
 	"res-desc4b": 'z vašo ambicioznostjo ${0} €',
+	"res-desc4c": ' <strong>Pomni</strong>: ${0} % pod 65 % EU ciljem za recikliranje!',
 	"res-overall": "Skupna primerjava",
 	"res-ghg1": 'Prihranki izpustov toplogrednih plinov',
 	"res-ghg2": 'Če bi enako ravnali z odpadki kot ${0}, bi se lahko letno izognili vsaj <strong>${1} tonam emisij CO<sub>2</sub>eq</strong>.',
@@ -773,6 +776,7 @@ const czech = {
 	"res-desc3": 'Mohli byste ušetřit <strong>${0} €</strong> ročně pokud zavedete stejný systém nakládání s odpady.',
 	"res-desc4a": 'Pokud by váš systém nakládání s odpady byl stejný jako v ${0}, <strong>mohli byste ušetřit ${1} €</strong> ročně',
 	"res-desc4b": '${0} € při vaší ambici',
+	"res-desc4c": ' <strong>Varování</strong>: ${0} % nedosahuje cíle EU 65 % recyklace!',
 	"res-overall": "Celkové srovnání",
 	"res-ghg1": 'Snížení množství skleníkových plynů',
 	"res-ghg2": 'Pokud by váš systém nakládání s odpady byl stejný jako v ${0}, ušetříte nejméně <strong>${1} tun emisí CO<sub>2</sub>eq</strong> ročně.',
@@ -830,6 +834,7 @@ const bulgarian = {
 	"res-desc3": 'Бихте могли да спестите <strong>${0} €</strong> 51 000 евро годишно, ако третирате отпадъците си по същия начин.',
 	"res-desc4a": 'Ако управлявате отпадъците си по същия начин, както в ${0}, <strong>бихте могли да спестите ${1} €</strong> годишно',
 	"res-desc4b": '${0} € при вашето ниво на амбиция',
+	"res-desc4c": ' <strong>Предупреждение</strong>: ${0} % по-малко от целта за 65% рециклиране в ЕС!',
 	"res-overall": "Цялостно сравнение",
 	"res-ghg1": 'Спестени парникови газове',
 	"res-ghg2": 'Ако управлявате отпадъците си по същия начин, както в ${0}, бихте могли да избегнете поне <strong>${1} тона емисии CO<sub>2</sub></strong> еквивалент годишно.',
