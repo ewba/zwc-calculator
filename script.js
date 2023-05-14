@@ -514,7 +514,7 @@ function initEventListeners() {
 function initTranslation(lang, override = false) {
 	// handle localized country names
 	for (const [cs, champ] of Object.entries(champions)) {
-		let cc = "cc-" + champ.country;
+		let cc = "cc-" + champ.cc;
 		let nc = getTranslation(cc);
 		if (nc) {
 			champ.country = nc;
