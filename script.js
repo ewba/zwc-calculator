@@ -393,7 +393,7 @@ function calculateBenefits() {
 	let champ = champions[data["population"]];
 	let cost = 0;
 	let populationRange = document.getElementById("population").selectedOptions[0].text;
-	let msg = inject(getTranslation("res-intro"), [champ.name, avgSize[data.population].toLocaleString(), populationRange]);
+	let msg = inject(getTranslation("res-intro"), [champ.title, avgSize[data.population].toLocaleString(), populationRange]);
 	// fix up ambition, since it's stored as a translatabled string
 	data.ambition = document.getElementById("ambition").selectedIndex;
 	
@@ -528,7 +528,7 @@ function initTranslation(lang, override = false) {
 		let nc = getTranslation(cc);
 		if (nc) {
 			champ.country = nc;
-			champ.name = champ.name + ", " + champ.country;
+			champ.title = champ.name + ", " + champ.country;
 		}
 	}
 	
