@@ -193,13 +193,13 @@ const PPP = {
 
 function switchLanguage(newLang) {
 	const switcher = document.getElementById("lang-switcher");
-	let idx;
 	let reinit = false;
 	if (typeof newLang != "string") {
 		// use form value instead of passed
 		newLang = switcher.selectedOptions[0].value;
 		reinit = true;
 	}
+	lang = newLang;
 	switcher.selectedIndex = Math.max(0, langIdx.indexOf(newLang));
 	if (reinit) initTranslation(newLang, true);
 }
