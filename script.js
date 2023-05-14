@@ -297,7 +297,7 @@ function rounder(val, ghg) {
 
 // multiply when used with champ, otherwise invert first
 function getPPPadjustment(champ) {
-	if (data.ppp == "Other") return 1; // ignore
+	if (data.ppp == getTranslation("t1-ctry0")) return 1; // ignore
 
 	return PPP[data.ppp] / PPP[champ.cc];
 }
