@@ -226,10 +226,13 @@ function syncBtnText(idx) {
 	}
 }
 
-function switchTab(newTab, force=false) {
-	// find the active tab/panel index
+function getActiveTabId() {
 	const tabs = Array.from(document.querySelectorAll(".tab-item"));
-	let idx = tabs.filter(t => t.classList.contains("active"))[0].getAttribute("data-idx");
+	return tabs.filter(t => t.classList.contains("active"))[0].getAttribute("data-idx") * 1;
+}
+
+function switchTab(newTab, force=false) {
+	const tabs = Array.from(document.querySelectorAll(".tab-item"));
 	
 	// blame bizarre "this" handling
 	if (newTab.target !== undefined) {
@@ -465,11 +468,10 @@ function nextForm() {
 	resultDiv.innerHTML = inputDump;
 	
 	// find the active tab/panel index
-	const tabs = Array.from(document.querySelectorAll(".tab-item"));
-	let idx = tabs.filter(t => t.classList.contains("active"))[0].getAttribute("data-idx");
+	let idx = getActiveTabId();
 	
 	// switch to next tab
-	idx = (idx*1+1) % 5;
+	idx = (idx + 1) % 5;
 	switchTab(idx);
 	syncBtnText(idx);
 
@@ -496,8 +498,8 @@ function initEventListeners() {
 		tab.addEventListener("click", switchTab);
 	}
 	// enable the panel of the active tab
-	const activeTab = tabs.filter(t => t.classList.contains("active"))[0].getAttribute("data-idx");
-	switchTab(activeTab*1, true);
+	const activeTab = getActiveTabId();
+	switchTab(activeTab, true);
 
 	const percents = document.querySelectorAll(".percent-100");
 	for (let per of percents) {
